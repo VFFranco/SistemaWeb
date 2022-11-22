@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesWebMvc.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,18 @@ namespace SalesWebMvc.Controllers
 {
     public class SellersController : Controller
     {
+        private readonly SellerSevice _sellerService;
+
+        public SellersController(SellerSevice sellerService)
+        {
+            _sellerService = sellerService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var list = _sellerService.FindAll();
+
+            return View(list);
         }
     }
 }
